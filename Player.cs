@@ -4,23 +4,46 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    readonly private float _horizontalSpeed = 7.5f;
+    public bool playerMovement = false;
 
 
-    void Update()
+    private void Update()
     {
-        if (transform.position.y > -3.33f)
+        if (playerMovement)
         {
-            transform.Translate(Vector3.down * 3 * Time.deltaTime);
+            Movement();
         }
-        else
+    }
+
+    private void Movement()
+    {
+        float horizontalInput = Input.GetAxis("Horizontal");
+        if (transform.position.x < -8.5f)
         {
-            Die();
-        }       
+            if (horizontalInput < 0)
+            {
+                horizontalInput = 0;
+            }
+        }
+        else if (transform.position.x > 8.5f)
+        {
+            if (horizontalInput > 0)
+            {
+                horizontalInput = 0;
+            }
+        }
+        transform.Translate(Vector3.right * _horizontalSpeed * horizontalInput * Time.deltaTime);
     }
 
 
-    private void Die()
+    public IEnumerator InitialMovement()
     {
-        transform.eulerAngles = new Vector3(0, 0, 90);
+        while (transform.position.x < -5.5f)
+        {
+            transform.position = new Vector3(transform.position.x + 0.02f, -2.7f, 0);
+            yield return null;
+        }
+        playerMovement = true;
     }
 }

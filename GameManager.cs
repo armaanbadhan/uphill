@@ -7,13 +7,12 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public bool isRunning = false;
-    public bool playerMovement = false;
 
     [SerializeField]
     private UIManager _UIManager;
 
     [SerializeField]
-    private SpawnManager _SpawnManager;
+    private Player _Player;
 
     [SerializeField]
     private DialogueManager _DialogueManager;
@@ -31,10 +30,13 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _UIManager = GameObject.Find("UIManager").GetComponent<UIManager>();
-        _SpawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        _Player = GameObject.Find("Player").GetComponent<Player>();
         _DialogueManager = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
         _buttons = GameObject.Find("ButtonManager").GetComponent<ButtonScript>();
         _content = GameObject.Find("ContentManager").GetComponent<ContentScript>();
+
+        _UIManager.ShowTitleScreen();
+        _buttons.ShowAllHideEscape();
     }
 
 
@@ -69,6 +71,7 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         isRunning = true;
+        _UIManager.HideTitleScreen();
         _content.HideContent();
         _buttons.HideAllButtons();
         StartCoroutine(TypeMomConvoAndStart());
@@ -80,11 +83,11 @@ public class GameManager : MonoBehaviour
         foreach (char letter in _DialogueManager.convoOne)
         {
             _momConvo.text += letter;
-            yield return new WaitForSeconds(0.03f);
+            yield return new WaitForSeconds(0.02f);
         }
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(2.5f);
         _momConvo.text = "";
         _UIManager.HideBlackBG();
-        _SpawnManager.SpawnPlayer();
+        _Player.StartCoroutine(_Player.InitialMovement());
     }
 }

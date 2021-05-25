@@ -23,8 +23,8 @@ public class ContentScript : MonoBehaviour
 
     public void ShowAbout()
     {
-        _text.text = "little chad wakes up and finds out his little dog gorge is missing\n" +
-            "follow him along in this adventure and find the kutta";
+        _text.text = "little chad wakes up and\nfinds out his little dog\ngorge is missing\n" +
+            "follow him along in this\nadventure and find the kutta";
     }
 
     public void HideContent()
