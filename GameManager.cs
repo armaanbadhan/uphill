@@ -40,7 +40,9 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         isRunning = true;
+        Debug.Log("starting convo");
         StartCoroutine(TypeMomConvo());
+        Debug.Log("hidebg called");
         _UIManager.HideBlackBG();
         _SpawnManager.SpawnPlayer();
     }
@@ -48,11 +50,13 @@ public class GameManager : MonoBehaviour
 
     IEnumerator TypeMomConvo()
     {
+        Debug.Log("convo starts");
         foreach (char letter in _DialogueManager.convoOne)
         {
             _momConvo.text += letter;
-            yield return new WaitForSeconds(0.02f);
+            yield return new WaitForSeconds(0.03f);
         }
         yield return new WaitForSeconds(5);
+        Debug.Log("convo ends");
     }
 }
