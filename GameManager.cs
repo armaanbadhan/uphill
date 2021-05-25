@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +17,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private DialogueManager _DialogueManager;
+
+    [SerializeField]
+    private TextMeshProUGUI _momConvo;
 
     void Start()
     {
@@ -35,8 +40,19 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         isRunning = true;
-        StartCoroutine(_DialogueManager.TypeMomConvo());
+        StartCoroutine(TypeMomConvo());
         _UIManager.HideBlackBG();
         _SpawnManager.SpawnPlayer();
+    }
+
+
+    IEnumerator TypeMomConvo()
+    {
+        foreach (char letter in _DialogueManager.convoOne)
+        {
+            _momConvo.text += letter;
+            yield return new WaitForSeconds(0.02f);
+        }
+        yield return new WaitForSeconds(5);
     }
 }
