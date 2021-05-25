@@ -19,6 +19,13 @@ public class GameManager : MonoBehaviour
     private DialogueManager _DialogueManager;
 
     [SerializeField]
+    private ButtonScript _buttons;
+
+    [SerializeField]
+    private ContentScript _content;
+
+
+    [SerializeField]
     private TextMeshProUGUI _momConvo;
 
     void Start()
@@ -26,6 +33,8 @@ public class GameManager : MonoBehaviour
         _UIManager = GameObject.Find("UIManager").GetComponent<UIManager>();
         _SpawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         _DialogueManager = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
+        _buttons = GameObject.Find("ButtonManager").GetComponent<ButtonScript>();
+        _content = GameObject.Find("ContentManager").GetComponent<ContentScript>();
     }
 
 
@@ -37,26 +46,45 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartGame()
+
+    public void ClickEscape()
     {
-        isRunning = true;
-        Debug.Log("starting convo");
-        StartCoroutine(TypeMomConvo());
-        Debug.Log("hidebg called");
-        _UIManager.HideBlackBG();
-        _SpawnManager.SpawnPlayer();
+        _content.HideContent();
+        _buttons.ShowAllHideEscape();
+    }
+
+    public void ClickAbout()
+    {
+        _content.ShowAbout();
+        _buttons.HideAllShowEscape();
+    }
+
+    public void ClickCredits()
+    {
+        _content.ShowCredits();
+        _buttons.HideAllShowEscape();
     }
 
 
-    IEnumerator TypeMomConvo()
+    public void StartGame()
     {
-        Debug.Log("convo starts");
+        isRunning = true;
+        _content.HideContent();
+        _buttons.HideAllButtons();
+        StartCoroutine(TypeMomConvoAndStart());
+    }
+
+    
+    IEnumerator TypeMomConvoAndStart()
+    {
         foreach (char letter in _DialogueManager.convoOne)
         {
             _momConvo.text += letter;
             yield return new WaitForSeconds(0.03f);
         }
-        yield return new WaitForSeconds(5);
-        Debug.Log("convo ends");
+        yield return new WaitForSeconds(2);
+        _momConvo.text = "";
+        _UIManager.HideBlackBG();
+        _SpawnManager.SpawnPlayer();
     }
 }
