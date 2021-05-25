@@ -13,18 +13,18 @@ public class ContentScript : MonoBehaviour
 
     public void ShowCredits()
     {
-        _text.text = "Made With LOB By:\n" +
+        _text.text = "Made By:\n" +
             "* Armaan\n" +
             "* Rijul\n" +
-            "* Manjit\n" +
-            "* Monish?";
+            "* Manjot\n" +
+            "* Munish?";
     }
 
 
     public void ShowAbout()
     {
         _text.text = "little chad wakes up and\nfinds out his little dog\ngorge is missing\n" +
-            "follow him along in this\nadventure and find the kutta";
+            "follow him along in this\nadventure and find george";
     }
 
     public void HideContent()

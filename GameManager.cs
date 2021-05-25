@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
         _content = GameObject.Find("ContentManager").GetComponent<ContentScript>();
 
         _UIManager.ShowTitleScreen();
+        _UIManager.ShowBlackBG();
         _buttons.ShowAllHideEscape();
     }
 
@@ -83,9 +84,9 @@ public class GameManager : MonoBehaviour
         foreach (char letter in _DialogueManager.convoOne)
         {
             _momConvo.text += letter;
-            yield return new WaitForSeconds(0.02f);
+            yield return new WaitForSeconds(0);
         }
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(0);
         _momConvo.text = "";
         _UIManager.HideBlackBG();
         _Player.StartCoroutine(_Player.InitialMovement());
