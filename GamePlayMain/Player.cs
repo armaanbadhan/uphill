@@ -12,9 +12,16 @@ public class Player : MonoBehaviour
     private bool _canJump = true;
 
 
+    [SerializeField]
+    private DialogueManager _DialogueManager;
+
+    private bool _dogHint = false;
+
     private void Start()
     {
+        _DialogueManager = GameObject.Find("MyDialogueManager").GetComponent<DialogueManager>();
         _rigidBody = GetComponent<Rigidbody2D>();
+        StartCoroutine(InitialMovement());
     }
 
     private void Update()
@@ -24,6 +31,7 @@ public class Player : MonoBehaviour
             Movement();
         }
 
+        // after jump when touches ground
         if (!_canJump && transform.position.y < -2.7f)
         {
             _canJump = true;
@@ -32,6 +40,19 @@ public class Player : MonoBehaviour
             transform.position = new Vector3(transform.position.x, -2.7f, 0);
         }
     }
+
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!_dogHint && other.tag == "hint1")
+        {
+            playerMovement = false;
+            _dogHint = true;
+            _DialogueManager.TypeDogConveOne();
+        }
+    }
+
+
 
     private void Movement()
     {
