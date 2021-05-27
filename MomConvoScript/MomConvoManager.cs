@@ -14,6 +14,8 @@ public class MomConvoManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _continueButton;
 
+    private bool _continueisActive = false;
+
     public readonly string convoOne = "Chad: Ugh. wha..t time is it \n\n" +
     "Mom(shouts) : It’s night time already and you wake up now!!!\nWhat did I tell you about sleeping Late huh?\n\n" +
     "you say nothing, as you stare into the deep void, zoning out.\nIt was pretty late last night.\n\n" +
@@ -27,6 +29,14 @@ public class MomConvoManager : MonoBehaviour
         StartCoroutine(TypeMomConvo());
     }
 
+    private void Update()
+    {
+        if (_continueisActive && Input.GetKeyDown(KeyCode.Space))
+        {
+            ClickContinue();
+        }
+    }
+
 
     IEnumerator TypeMomConvo()
     {
@@ -37,11 +47,12 @@ public class MomConvoManager : MonoBehaviour
         }
         yield return new WaitForSeconds(0.05f);
         _continueButton.text = "CONTINUE";
+        _continueisActive = true;
     }
 
 
     public void ClickContinue()
     {
-        SceneManager.LoadScene("GamePlayMain");
+        SceneManager.LoadScene("ZoneOne");
     }
 }

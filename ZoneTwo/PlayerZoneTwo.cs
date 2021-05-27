@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
+
+public class PlayerZoneTwo : MonoBehaviour
 {
     readonly private float _horizontalSpeed = 6f;
     public bool playerMovement = false;
@@ -11,15 +14,20 @@ public class Player : MonoBehaviour
     readonly private float _velocity = 10;
     private bool _canJump = true;
 
+    [SerializeField]
+    private Image blackk;
+    [SerializeField]
+    private Animator animm;
+
 
     [SerializeField]
-    private DialogueManager _DialogueManager;
+    private DialogueZoneTwo _DialogueManager;
 
-    private bool _dogHint = false;
+    private bool _wizardHint = false;
 
     private void Start()
     {
-        _DialogueManager = GameObject.Find("MyDialogueManager").GetComponent<DialogueManager>();
+        _DialogueManager = GameObject.Find("MyDialogueManagerZ2").GetComponent<DialogueZoneTwo>();
         _rigidBody = GetComponent<Rigidbody2D>();
         StartCoroutine(InitialMovement());
     }
@@ -32,23 +40,36 @@ public class Player : MonoBehaviour
         }
 
         // after jump when touches ground
-        if (!_canJump && transform.position.y < -2.7f)
+        if (!_canJump && transform.position.y < -2.33f)
         {
             _canJump = true;
             _rigidBody.gravityScale = 0;
             _rigidBody.velocity = new Vector2(0, 0);
-            transform.position = new Vector3(transform.position.x, -2.7f, 0);
+            transform.position = new Vector3(transform.position.x, -2.33f, 0);
+        }
+
+
+        // stairs thing
+        if (transform.position.x > 8.15f)
+        {
+            playerMovement = false;
+            transform.Translate(Vector3.up * _horizontalSpeed * Time.deltaTime);
         }
     }
 
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!_dogHint && other.tag == "hint1")
+        if (!_wizardHint && other.tag is "hint4")
         {
             playerMovement = false;
-            _dogHint = true;
-            _DialogueManager.TypeDogConveOne();
+            _wizardHint = true;
+            _DialogueManager.StartWizardConvo();
+        }
+
+        if (other.tag is "nextScene")
+        {
+            StartCoroutine(Fading());
         }
     }
 
@@ -101,9 +122,16 @@ public class Player : MonoBehaviour
     {
         while (transform.position.x < -5.5f)
         {
-            transform.position = new Vector3(transform.position.x + 0.02f, -2.7f, 0);
+            transform.position = new Vector3(transform.position.x + 0.02f, -2.33f, 0);
             yield return null;
         }
         playerMovement = true;
+    }
+
+    IEnumerator Fading()
+    {
+        animm.SetBool("Fade", true);
+        yield return new WaitUntil(() => blackk.color.a == 1);
+        SceneManager.LoadScene("ZoneThree");
     }
 }
