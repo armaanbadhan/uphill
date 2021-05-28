@@ -66,7 +66,7 @@ public class DialogueZoneOne : MonoBehaviour
     {
         _continueButton.text = "";
         _dialogue.text = "";
-        _player.playerMovement = true;
+        _player.SetMovementTrue();
         _continueBShow = false;
     }
 }

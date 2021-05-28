@@ -66,7 +66,7 @@ public class DialogueZoneTwo : MonoBehaviour
         }
         else
         {
-            _player.playerMovement = true;
+            _player.SetMovementTrue();
         }
     }
 
