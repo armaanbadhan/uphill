@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class DialogueZoneFour : MonoBehaviour
+public class DialogueZoneFive : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI _dialogue;
@@ -12,10 +12,13 @@ public class DialogueZoneFour : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _continueButton;
 
+    [SerializeField]
+    private TextMeshProUGUI _hairaaHoonMein;
+
     private bool _continueBShow = false;
 
     [SerializeField]
-    private PlayerZoneFour _player;
+    private PlayerZoneFive _player;
 
     [SerializeField]
     private string[] _convo;
@@ -25,7 +28,7 @@ public class DialogueZoneFour : MonoBehaviour
 
     private void Start()
     {
-        _player = GameObject.Find("PlayerZ4").GetComponent<PlayerZoneFour>();
+        _player = GameObject.Find("PlayerZ5").GetComponent<PlayerZoneFive>();
     }
 
     private void Update()
@@ -39,6 +42,19 @@ public class DialogueZoneFour : MonoBehaviour
     public void StartDogConvo()
     {
         StartCoroutine(TypeConvo(_convo[_ind]));
+    }
+
+
+    public void ShowExclamation()
+    {
+        StartCoroutine(Surprised());
+    }
+
+    IEnumerator Surprised()
+    {
+        _hairaaHoonMein.text = "!!!";
+        yield return new WaitForSeconds(1.5f);
+        _hairaaHoonMein.text = "";
     }
 
 
@@ -60,14 +76,14 @@ public class DialogueZoneFour : MonoBehaviour
         _continueButton.text = "";
         _continueBShow = false;
         _dialogue.text = "";
-        if (_ind < 0)
+        if (_ind < 2)
         {
             _ind++;
             StartCoroutine(TypeConvo(_convo[_ind]));
         }
         else
         {
-            _player.SetMovementTrue();
+            _player.LastRites();
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class PlayerZoneThree : MonoBehaviour
+public class PlayerZoneFive : MonoBehaviour
 {
     [SerializeField]
     private Image blackk;
@@ -14,17 +14,16 @@ public class PlayerZoneThree : MonoBehaviour
     private Player _player;
 
     private bool _initialDone = false;
-    private bool _auntChat = false;
 
     [SerializeField]
-    private DialogueZoneThree _dialogueManager;
+    private DialogueZoneFive _dialogueManager;
 
 
     // Start is called before the first frame update
     void Start()
     {
         _player = GetComponent<Player>();
-        _dialogueManager = GameObject.Find("DialogueZ3").GetComponent<DialogueZoneThree>();
+        _dialogueManager = GameObject.Find("DialogueZ5").GetComponent<DialogueZoneFive>();
     }
 
     // Update is called once per frame
@@ -37,6 +36,7 @@ public class PlayerZoneThree : MonoBehaviour
         else if (!_initialDone)
         {
             _initialDone = true;
+            _dialogueManager.ShowExclamation();
             SetMovementTrue();
         }
     }
@@ -44,16 +44,10 @@ public class PlayerZoneThree : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!_auntChat && other.tag is "hint5")
+        if (other.tag is "kutta")
         {
             _player.playerMovement = false;
-            _auntChat = true;
-            _dialogueManager.StartAuntConvo();
-        }
-
-        if (other.tag is "nextScene")
-        {
-            StartCoroutine(Fading());
+            _dialogueManager.StartDogConvo();
         }
     }
 
@@ -63,10 +57,16 @@ public class PlayerZoneThree : MonoBehaviour
         _player.playerMovement = true;
     }
 
+    public void LastRites()
+    {
+        StartCoroutine(Fading());
+    }
+
     IEnumerator Fading()
     {
+        yield return new WaitForSeconds(1.5f);
         animm.SetBool("Fade", true);
         yield return new WaitUntil(() => blackk.color.a == 1);
-        SceneManager.LoadScene("ZoneFour");
+        SceneManager.LoadScene("HappyEnding");
     }
 }
