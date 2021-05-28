@@ -6,6 +6,10 @@ using TMPro;
 
 public class DialogueZoneFour : MonoBehaviour
 {
+    readonly private string _notice = "As you are walking over the bridge , you notice something on the ground!";
+    readonly private string _dog = "IT’S GEORGE’S COLLAR! HE MUST BE AROUND SOMEWHERE";
+
+
     [SerializeField]
     private TextMeshProUGUI _dialogue;
 
@@ -36,9 +40,43 @@ public class DialogueZoneFour : MonoBehaviour
         }
     }
 
-    public void StartDogConvo()
+    public void StartFoxConvo()
     {
         StartCoroutine(TypeConvo(_convo[_ind]));
+    }
+
+
+    public void Notice()
+    {
+        StartCoroutine(TypeStuff(_notice));
+    }
+
+    public void StartDogConvo()
+    {
+        StartCoroutine(DogConvo(_dog));
+    }
+
+    IEnumerator DogConvo(string whatToType)
+    {
+        foreach (char letter in whatToType)
+        {
+            _dialogue.text += letter;
+            yield return new WaitForSeconds(0.02f);
+        }
+        _continueButton.text = "press space to continue";
+        _continueBShow = true;
+    }
+
+    IEnumerator TypeStuff(string whatToType)
+    {
+        foreach (char letter in whatToType)
+        {
+            _dialogue.text += letter;
+            yield return new WaitForSeconds(0.02f);
+        }
+        yield return new WaitForSeconds(1f);
+        _dialogue.text = "";
+        _player.SetMovementTrue();
     }
 
 
@@ -60,7 +98,7 @@ public class DialogueZoneFour : MonoBehaviour
         _continueButton.text = "";
         _continueBShow = false;
         _dialogue.text = "";
-        if (_ind < 0)
+        if (_ind < 6)
         {
             _ind++;
             StartCoroutine(TypeConvo(_convo[_ind]));

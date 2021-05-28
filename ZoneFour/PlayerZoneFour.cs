@@ -18,6 +18,8 @@ public class PlayerZoneFour : MonoBehaviour
 
     private bool _initialDone = false;
     private bool _dogChat = false;
+    private bool _noticed = false;
+    private bool _foxConvo = false;
 
     [SerializeField]
     private DialogueZoneFour _dialogueManager;
@@ -61,6 +63,20 @@ public class PlayerZoneFour : MonoBehaviour
             _dogCollar.transform.position = new Vector3(0, 3.95f, 0);
             _dogCollar.transform.localScale = new Vector3(5, 5, 0);
             _dialogueManager.StartDogConvo();
+        }
+
+        if(!_foxConvo && other.tag is "fox")
+        {
+            _player.playerMovement = false;
+            _foxConvo = true;
+            _dialogueManager.StartFoxConvo();
+        }
+
+        if (!_noticed && other.tag is "notice")
+        {
+            _noticed = true;
+            _player.playerMovement = false;
+            _dialogueManager.Notice();
         }
 
         if (other.tag is "nextScene")
