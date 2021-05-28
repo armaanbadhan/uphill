@@ -44,13 +44,14 @@ public class DialogueZoneTwo : MonoBehaviour
 
     IEnumerator TypeConvo(string whatToType)
     {
+        yield return new WaitForSeconds(0.5f);
         foreach (char letter in whatToType)
         {
             _dialogue.text += letter;
             yield return new WaitForSeconds(0.02f);
         }
         yield return new WaitForSeconds(0.05f);
-        _continueButton.text = "CONTINUE";
+        _continueButton.text = "press space to continue";
         _continueBShow = true;
     }
 
@@ -68,11 +69,6 @@ public class DialogueZoneTwo : MonoBehaviour
         {
             _player.SetMovementTrue();
         }
-    }
-
-    public void PressButton()
-    {
-        Debug.Log("here");
     }
 }
  

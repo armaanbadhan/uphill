@@ -6,6 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class PlayerZoneOne : MonoBehaviour
 {
+    [SerializeField]
+    private Image blackk;
+    [SerializeField]
+    private Animator animm;
+
     private Player _player;
 
     [SerializeField]
@@ -47,12 +52,17 @@ public class PlayerZoneOne : MonoBehaviour
             _kemptyConvo = true;
             _DialogueManager.TypeKemptyConvo();
         }
+
+        if (other.tag is "nextScene")
+        {
+            StartCoroutine(Fading());
+        }
     }
 
 
     public IEnumerator InitialMovement()
     {
-        while (transform.position.x < -5.5f)
+        while (transform.position.x < -8f)
         {
             transform.position = new Vector3(transform.position.x + 0.02f, -2.7f, 0);
             yield return null;
@@ -63,5 +73,12 @@ public class PlayerZoneOne : MonoBehaviour
     public void SetMovementTrue()
     {
         _player.playerMovement = true;
+    }
+
+    IEnumerator Fading()
+    {
+        animm.SetBool("Fade", true);
+        yield return new WaitUntil(() => blackk.color.a == 1);
+        SceneManager.LoadScene("ZoneTwo");
     }
 }

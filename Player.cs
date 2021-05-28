@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public float _floorYCord;
+    public float floorYCord;
 
 
     readonly private float _horizontalSpeed = 6f;
@@ -15,11 +15,6 @@ public class Player : MonoBehaviour
     private Rigidbody2D _rigidBody;
     readonly private float _velocity = 10;
     private bool _canJump = true;
-
-    [SerializeField]
-    private Image blackk;
-    [SerializeField]
-    private Animator animm;
 
 
     void Start()
@@ -35,12 +30,12 @@ public class Player : MonoBehaviour
         }
 
         // after jump when touches ground
-        if (!_canJump && transform.position.y < _floorYCord)
+        if (!_canJump && transform.position.y < floorYCord)
         {
             _canJump = true;
             _rigidBody.gravityScale = 0;
             _rigidBody.velocity = new Vector2(0, 0);
-            transform.position = new Vector3(transform.position.x, _floorYCord, 0);
+            transform.position = new Vector3(transform.position.x, floorYCord, 0);
         }
     }
 
@@ -85,20 +80,5 @@ public class Player : MonoBehaviour
             _canJump = false;
             _rigidBody.velocity = new Vector2(0, _velocity);
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag is "nextScene")
-        {
-            StartCoroutine(Fading());
-        }
-    }
-
-    IEnumerator Fading()
-    {
-        animm.SetBool("Fade", true);
-        yield return new WaitUntil(() => blackk.color.a == 1);
-        SceneManager.LoadScene("ZoneTwo");
     }
 }

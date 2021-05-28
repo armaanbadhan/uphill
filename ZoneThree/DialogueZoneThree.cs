@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class DialogueZoneOne : MonoBehaviour
+public class DialogueZoneThree : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI _dialogue;
@@ -15,16 +15,17 @@ public class DialogueZoneOne : MonoBehaviour
     private bool _continueBShow = false;
 
     [SerializeField]
-    private PlayerZoneOne _player;
+    private PlayerZoneThree _player;
 
-    readonly private string _convoOne = "chad (to himself): those are george's footsteps. he must be up ahead.";
-    readonly private string _convoTwo = "Guard: You are not allowed in here\n" +
-        "Chad: I wasn’t going there anyway";
-    readonly private string _convoThree = "You see Mr.Kempty’s house as you pass by. Always found that dude creepy. And what kinda name is that anyway?";
+    [SerializeField]
+    private string[] _convo;
+
+    private int _ind = 0;
+
 
     private void Start()
     {
-        _player = GameObject.Find("PlayerZ1").GetComponent<PlayerZoneOne>();
+        _player = GameObject.Find("PlayerZ3").GetComponent<PlayerZoneThree>();
     }
 
     private void Update()
@@ -35,20 +36,11 @@ public class DialogueZoneOne : MonoBehaviour
         }
     }
 
-    public void TypeDogConveOne()
+    public void StartAuntConvo()
     {
-        StartCoroutine(TypeConvo(_convoOne));
+        StartCoroutine(TypeConvo(_convo[_ind]));
     }
 
-    public void TypeGuardConvo()
-    {
-        StartCoroutine(TypeConvo(_convoTwo));
-    }
-
-    public void TypeKemptyConvo()
-    {
-        StartCoroutine(TypeConvo(_convoThree));
-    }
 
     IEnumerator TypeConvo(string whatToType)
     {
@@ -66,8 +58,16 @@ public class DialogueZoneOne : MonoBehaviour
     public void ClickContinue()
     {
         _continueButton.text = "";
-        _dialogue.text = "";
-        _player.SetMovementTrue();
         _continueBShow = false;
+        _dialogue.text = "";
+        if (_ind < 10)
+        {
+            _ind++;
+            StartCoroutine(TypeConvo(_convo[_ind]));
+        }
+        else
+        {
+            _player.SetMovementTrue();
+        }
     }
 }
