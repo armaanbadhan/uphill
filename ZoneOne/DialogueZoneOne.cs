@@ -17,9 +17,9 @@ public class DialogueZoneOne : MonoBehaviour
     [SerializeField]
     private PlayerZoneOne _player;
 
-    readonly private string _convoOne = "chad (to himself): those are george's footsteps. he must be up ahead.";
+    readonly private string _convoOne = "you (to yourself): those are george's footsteps. he must be up ahead.";
     readonly private string _convoTwo = "Guard: You are not allowed in here\n" +
-        "Chad: I wasn’t going there anyway";
+        "you: I wasn’t going there anyway";
     readonly private string _convoThree = "You see Mr.Kempty’s house as you pass by. Always found that dude creepy. And what kinda name is that anyway?";
 
     private void Start()

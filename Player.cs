@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
         transform.Translate(Vector3.right * _horizontalSpeed * horizontalInput * Time.deltaTime);
 
         // jump
-        if (_canJump && Input.GetKeyDown(KeyCode.W))
+        if (_canJump && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
         {
             _rigidBody.gravityScale = 2.75f;
             _canJump = false;

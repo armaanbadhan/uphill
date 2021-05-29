@@ -12,12 +12,16 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField]
     private ContentScript _content;
 
+    [SerializeField]
+    private AudioSource _music;
+
     private bool _isEscapeActive = false;
 
     private void Start()
     {
         _buttons = GameObject.Find("ButtonsManager").GetComponent<ButtonScript>();
         _content = GameObject.Find("ContentManager").GetComponent<ContentScript>();
+        _music = GameObject.Find("Music").GetComponent<AudioSource>();
 
         _buttons.ShowAllHideEscape();
     }
@@ -36,6 +40,18 @@ public class MainMenuManager : MonoBehaviour
     {
         _content.HideContent();
         _buttons.HideAllButtons();
+        StartCoroutine(FadeMusic());
+    }
+
+    IEnumerator FadeMusic()
+    {
+        float startVolume = _music.volume;
+
+        while (_music.volume > 0)
+        {
+            _music.volume -= startVolume * Time.deltaTime / 0.1f;
+            yield return null;
+        }
         SceneManager.LoadScene("MOMConvo");
     }
 

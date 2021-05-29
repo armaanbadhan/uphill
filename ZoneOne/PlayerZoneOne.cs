@@ -19,15 +19,26 @@ public class PlayerZoneOne : MonoBehaviour
     private bool _dogHint = false;
     private bool _guardHint = false;
     private bool _kemptyConvo = false;
+    private bool _initialMovement = false;
 
     private void Start()
     {
         _player = GetComponent<Player>();
         _DialogueManager = GameObject.Find("DialogueZ1").GetComponent<DialogueZoneOne>();
-        StartCoroutine(InitialMovement());
     }
 
-
+    private void Update()
+    {
+        if (!_initialMovement && transform.position.x < -8f)
+        {
+            transform.Translate(Vector3.right * 2f * Time.deltaTime);
+        }
+        else if (!_initialMovement)
+        {
+            _initialMovement = true;
+            SetMovementTrue();
+        }
+    }
 
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -57,17 +68,6 @@ public class PlayerZoneOne : MonoBehaviour
         {
             StartCoroutine(Fading());
         }
-    }
-
-
-    public IEnumerator InitialMovement()
-    {
-        while (transform.position.x < -8f)
-        {
-            transform.position = new Vector3(transform.position.x + 0.02f, -2.7f, 0);
-            yield return null;
-        }
-        SetMovementTrue();
     }
 
     public void SetMovementTrue()

@@ -53,7 +53,7 @@ public class DialogueZoneFive : MonoBehaviour
     IEnumerator Surprised()
     {
         _hairaaHoonMein.text = "!!!";
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.0f);
         _hairaaHoonMein.text = "";
     }
 
