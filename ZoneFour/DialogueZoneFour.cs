@@ -6,7 +6,7 @@ using TMPro;
 
 public class DialogueZoneFour : MonoBehaviour
 {
-    readonly private string _notice = "As you are walking over the bridge , you notice something on the ground!";
+    readonly private string _notice = "As you are walking, you notice something on the ground!";
     readonly private string _dog = "IT’S GEORGE’S COLLAR! HE MUST BE AROUND SOMEWHERE";
 
 

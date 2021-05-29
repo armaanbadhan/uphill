@@ -13,6 +13,11 @@ public class DialogueManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _thanks;
 
+    [SerializeField]
+    private Image _fin;
+
+    [SerializeField]
+    private Animator _animm;
 
     readonly private string _famousLastWords = "You spend the night sitting there with george,\n" +
         "observing the magnificent scenery and taking in\n" +
@@ -45,5 +50,14 @@ public class DialogueManager : MonoBehaviour
             _thanks.text += letter;
             yield return new WaitForSeconds(0.02f);
         }
+        yield return new WaitForSeconds(2.0f);
+        StartCoroutine(Fading());
+    }
+
+    IEnumerator Fading()
+    {
+        _animm.SetBool("Fade", true);
+        yield return new WaitUntil(() => _fin.color.a == 1);
+        SceneManager.LoadScene("returnRR");
     }
 }

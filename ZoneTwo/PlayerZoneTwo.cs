@@ -20,6 +20,9 @@ public class PlayerZoneTwo : MonoBehaviour
     private bool _wizardHint = false;
     private bool _initialMovement = false;
 
+    string[] cheatCode = new string[] { "c", "h", "a", "d", "n", "u", "b" };
+    int index = 0;
+
     private void Start()
     {
         _player = GetComponent<Player>();
@@ -43,6 +46,23 @@ public class PlayerZoneTwo : MonoBehaviour
         {
             _player.playerMovement = false;
             transform.Translate(Vector3.up * 6f * Time.deltaTime);
+        }
+
+
+        if (Input.anyKeyDown)
+        {
+            if (Input.GetKeyDown(cheatCode[index]))
+            {
+                index++;
+            }
+            else
+            {
+                index = 0;
+            }
+        }
+        if (index == cheatCode.Length)
+        {
+            StartCoroutine(Fading());
         }
     }
 

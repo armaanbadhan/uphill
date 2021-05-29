@@ -17,6 +17,12 @@ public class MainMenuManager : MonoBehaviour
 
     private bool _isEscapeActive = false;
 
+    void Awake()
+    {
+        GameObject A = GameObject.FindGameObjectWithTag("music");
+        Destroy(A);
+    }
+
     private void Start()
     {
         _buttons = GameObject.Find("ButtonsManager").GetComponent<ButtonScript>();

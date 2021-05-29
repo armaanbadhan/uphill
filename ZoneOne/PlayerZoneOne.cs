@@ -21,6 +21,9 @@ public class PlayerZoneOne : MonoBehaviour
     private bool _kemptyConvo = false;
     private bool _initialMovement = false;
 
+    string[] cheatCode = new string[] { "c", "h", "a", "d", "n", "u", "b" };
+    int index = 0;
+
     private void Start()
     {
         _player = GetComponent<Player>();
@@ -37,6 +40,22 @@ public class PlayerZoneOne : MonoBehaviour
         {
             _initialMovement = true;
             SetMovementTrue();
+        }
+
+        if (Input.anyKeyDown)
+        {
+            if (Input.GetKeyDown(cheatCode[index]))
+            {
+                index++;
+            }
+            else
+            {
+                index = 0;
+            }
+        }
+        if (index == cheatCode.Length)
+        {
+            StartCoroutine(Fading());
         }
     }
 

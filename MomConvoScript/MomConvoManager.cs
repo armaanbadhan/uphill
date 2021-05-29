@@ -22,6 +22,8 @@ public class MomConvoManager : MonoBehaviour
     "All the demons they don’t let me sleep, forget it mom won’t understand You glance around for georgie.\n\n" +
     "Chad: Hey George! Where are you buddy?\n\nYou say as you walk out...";
 
+    string[] cheatCode = new string[] { "c", "h", "a", "d", "n", "u", "b" };
+    int index = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +34,22 @@ public class MomConvoManager : MonoBehaviour
     private void Update()
     {
         if (_continueisActive && Input.GetKeyDown(KeyCode.Space))
+        {
+            ClickContinue();
+        }
+
+        if (Input.anyKeyDown)
+        {
+            if (Input.GetKeyDown(cheatCode[index]))
+            {
+                index++;
+            }
+            else
+            {
+                index = 0;
+            }
+        }
+        if (index == cheatCode.Length)
         {
             ClickContinue();
         }

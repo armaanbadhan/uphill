@@ -24,6 +24,9 @@ public class PlayerZoneFour : MonoBehaviour
     [SerializeField]
     private DialogueZoneFour _dialogueManager;
 
+    string[] cheatCode = new string[] { "c", "h", "a", "d", "n", "u", "b" };
+    int index = 0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +53,22 @@ public class PlayerZoneFour : MonoBehaviour
         {
             _player.playerMovement = false;
             transform.Translate(Vector3.up * 6f * Time.deltaTime);
+        }
+
+        if (Input.anyKeyDown)
+        {
+            if (Input.GetKeyDown(cheatCode[index]))
+            {
+                index++;
+            }
+            else
+            {
+                index = 0;
+            }
+        }
+        if (index == cheatCode.Length)
+        {
+            StartCoroutine(Fading());
         }
     }
 

@@ -19,6 +19,9 @@ public class PlayerZoneThree : MonoBehaviour
     [SerializeField]
     private DialogueZoneThree _dialogueManager;
 
+    string[] cheatCode = new string[] { "c", "h", "a", "d", "n", "u", "b" };
+    int index = 0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +41,22 @@ public class PlayerZoneThree : MonoBehaviour
         {
             _initialDone = true;
             SetMovementTrue();
+        }
+
+        if (Input.anyKeyDown)
+        {
+            if (Input.GetKeyDown(cheatCode[index]))
+            {
+                index++;
+            }
+            else
+            {
+                index = 0;
+            }
+        }
+        if (index == cheatCode.Length)
+        {
+            StartCoroutine(Fading());
         }
     }
 
