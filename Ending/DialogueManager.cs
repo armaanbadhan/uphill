@@ -22,7 +22,7 @@ public class DialogueManager : MonoBehaviour
     readonly private string _famousLastWords = "You spend the night sitting there with george,\n" +
         "observing the magnificent scenery and taking in\n" +
         "the cold air..breathe...it feels good to be alive.";
-    readonly private string _themksVmro = "thanks for staying with chad";
+    readonly private string _themksVmro = "thanks for playing";
 
     void Start()
     {
