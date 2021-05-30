@@ -32,9 +32,9 @@ public class PlayerZoneOne : MonoBehaviour
 
     private void Update()
     {
-        if (!_initialMovement && transform.position.x < -8f)
+        if (!_initialMovement && transform.position.x < -6.5f)
         {
-            transform.Translate(Vector3.right * 2f * Time.deltaTime);
+            transform.Translate(Vector3.right * 3f * Time.deltaTime);
         }
         else if (!_initialMovement)
         {

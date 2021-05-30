@@ -31,7 +31,7 @@ public class PlayerZoneTwo : MonoBehaviour
 
     private void Update()
     {
-        if (!_initialMovement && transform.position.x < -8f)
+        if (!_initialMovement && transform.position.x < -7f)
         {
             transform.Translate(Vector3.right * 2f * Time.deltaTime);
         }
@@ -42,7 +42,7 @@ public class PlayerZoneTwo : MonoBehaviour
         }
 
         // stairs thing
-        if (transform.position.x > 8.15f)
+        if (transform.position.x > 7.34f)
         {
             _player.playerMovement = false;
             transform.Translate(Vector3.up * 6f * Time.deltaTime);

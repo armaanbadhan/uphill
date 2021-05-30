@@ -38,7 +38,7 @@ public class PlayerZoneFour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!_initialDone && transform.position.x < -8)
+        if (!_initialDone && transform.position.x < -6.65f)
         {
             transform.Translate(Vector3.right * 2.5f * Time.deltaTime);
         }
@@ -49,7 +49,7 @@ public class PlayerZoneFour : MonoBehaviour
         }
 
         // stairs thing
-        if (transform.position.x > 8.27f)
+        if (transform.position.x > 7.46f)
         {
             _player.playerMovement = false;
             transform.Translate(Vector3.up * 6f * Time.deltaTime);

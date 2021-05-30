@@ -45,14 +45,14 @@ public class Player : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
 
         // check for boundaries
-        if (transform.position.x < -8.5f)
+        if (transform.position.x < -7.5f)
         {
             if (horizontalInput < 0)
             {
                 horizontalInput = 0;
             }
         }
-        else if (transform.position.x > 8.5f)
+        else if (transform.position.x > 7.5f)
         {
             if (horizontalInput > 0)
             {
